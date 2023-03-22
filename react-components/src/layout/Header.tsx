@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <AppBar>
       <Toolbar sx={{ display: 'flex', justifyContent: 'center' }}>
-        <ButtonGroup variant="text">
+        <ButtonGroup>
           <Button sx={{ color: '#FFF' }} component={NavLink} to={AppRoutes.Home}>
             Home
           </Button>
