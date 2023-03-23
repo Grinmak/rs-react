@@ -1,7 +1,6 @@
 import { AppBar, Button, ButtonGroup, Toolbar } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { AppRoutes } from '../enum/AppRoutes';
-import '../index.css';
 
 const Header = () => {
   return (
@@ -13,6 +12,9 @@ const Header = () => {
           </Button>
           <Button sx={{ color: '#FFF' }} component={NavLink} to={AppRoutes.AboutUsPage}>
             About Us
+          </Button>
+          <Button sx={{ color: '#FFF' }} component={NavLink} to={AppRoutes.FormsPage}>
+            Forms
           </Button>
         </ButtonGroup>
       </Toolbar>

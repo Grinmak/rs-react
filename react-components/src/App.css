@@ -1,4 +1,6 @@
 .active {
   text-decoration: underline;
   text-underline-offset: 5px;
+  font-size: 50px;
+  background: red;
 }

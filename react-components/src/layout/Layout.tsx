@@ -3,7 +3,6 @@ import { Outlet } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Box } from '@mui/material';
 import React, { FC } from 'react';
-import '../App.css';
 
 const ContentWrapper = styled(Box)`
   flex: 1 1 auto;
