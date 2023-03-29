@@ -5,7 +5,8 @@ type IProps = {
   BirthInput: ({ target: { value } }: ChangeEvent<HTMLInputElement>) => void;
   LanguageInput: ({ target: { value } }: ChangeEvent<HTMLSelectElement>) => void;
   ContactInput: ({ target: { value } }: ChangeEvent<HTMLInputElement>) => void;
-  StateData: string;
+
+  // StateData: string;
 };
 type IFormsState = {
   userName: string;
@@ -33,24 +34,24 @@ const languageValues: ILanguageArray = [
 ];
 
 class FormsTemplate extends React.Component<IProps, IFormsState> {
-  constructor(props: IProps) {
-    super(props);
-    this.state = {
-      userName: `${this.props.StateData.}`,
-      birthDate: '',
-      contact: '',
-      selectLanguage: '',
-      rendered: false,
-    };
-    console.log('props :', this.props);
-    console.log('state :', this.state);
-  }
+  // constructor(props: IProps) {
+  //   super(props);
+  //   //   this.state = {
+  //   //     userName: `${this.props.StateData.}`,
+  //   //     birthDate: '',
+  //   //     contact: '',
+  //   //     selectLanguage: '',
+  //   //     rendered: false,
+  //   //   };
+  //   //   console.log('props :', this.props);
+  //   //   console.log('state :', this.state);
+  // }
 
   render() {
     return (
       <>
         <div>
-          <form onSubmit={this.props.submitHandler}>
+          <form>
             <div>
               <label>
                 Name:
