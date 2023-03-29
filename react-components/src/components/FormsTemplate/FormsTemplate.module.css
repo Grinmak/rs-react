@@ -4,8 +4,31 @@
   row-gap: 15px;
 } */
 
-.form {
+.wrapper {
   display: flex;
   flex-flow: column;
   row-gap: 15px;
+}
+
+.name,
+.date {
+  display: flex;
+  flex-flow: column;
+}
+
+.button_wrapper {
+  display: flex;
+  /* margin-top: 25px; */
+}
+
+.submit_button {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.input_date,
+.input_name {
+  display: flex;
+  width: 100%;
 }

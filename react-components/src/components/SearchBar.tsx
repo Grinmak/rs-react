@@ -26,12 +26,10 @@ class SearchBar extends React.Component<IType, IState> {
     this.setState({
       userInput: `${localStorage.getItem('search')}`,
     });
-    console.log('component mounted: ', localStorage.getItem('search'));
   }
 
   componentWillUnmount() {
     localStorage.setItem('search', this.state.userInput);
-    console.log('component UNMOUNTED: ');
   }
 
   render() {

@@ -1,10 +1,16 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, FormEvent } from 'react';
+import style from './FormsTemplate.module.css';
 
 type IProps = {
   NameInput: ({ target: { value } }: ChangeEvent<HTMLInputElement>) => void;
   BirthInput: ({ target: { value } }: ChangeEvent<HTMLInputElement>) => void;
   LanguageInput: ({ target: { value } }: ChangeEvent<HTMLSelectElement>) => void;
   ContactInput: ({ target: { value } }: ChangeEvent<HTMLInputElement>) => void;
+  SubmitHandler: (event: React.FormEvent<HTMLFormElement>) => void;
+  UserNameState: string;
+  BirthDateState: string;
+  ContactState: string;
+  selectLanguageState: string;
 
   // StateData: string;
 };
@@ -34,41 +40,30 @@ const languageValues: ILanguageArray = [
 ];
 
 class FormsTemplate extends React.Component<IProps, IFormsState> {
-  // constructor(props: IProps) {
-  //   super(props);
-  //   //   this.state = {
-  //   //     userName: `${this.props.StateData.}`,
-  //   //     birthDate: '',
-  //   //     contact: '',
-  //   //     selectLanguage: '',
-  //   //     rendered: false,
-  //   //   };
-  //   //   console.log('props :', this.props);
-  //   //   console.log('state :', this.state);
-  // }
-
   render() {
     return (
       <>
         <div>
-          <form>
-            <div>
+          <form className={style.wrapper} onSubmit={this.props.SubmitHandler}>
+            <div className={style.name}>
+              Name:
               <label>
-                Name:
                 <input
+                  className={style.input_name}
                   name="userName"
-                  value={this.state.userName}
+                  value={this.props.UserNameState}
                   onChange={this.props.NameInput}
                 ></input>
               </label>
             </div>
-            <div>
+            <div className={style.date}>
+              Date of birth:
               <label>
-                Date of birth:
                 <input
+                  className={style.input_date}
                   type="date"
                   name="date"
-                  value={this.state.birthDate}
+                  value={this.props.BirthDateState}
                   onChange={this.props.BirthInput}
                 ></input>
               </label>
@@ -96,7 +91,7 @@ class FormsTemplate extends React.Component<IProps, IFormsState> {
             <div>
               Native Language
               <select
-                value={this.state.selectLanguage}
+                value={this.props.selectLanguageState}
                 onChange={this.props.LanguageInput}
                 name="test"
               >
@@ -112,7 +107,11 @@ class FormsTemplate extends React.Component<IProps, IFormsState> {
               Upload Image
               <input type="file" name="file"></input>
             </label>
-            <button type="submit">Submit</button>
+            <div className={style.button_wrapper}>
+              <button className={style.submit_button} type="submit">
+                Submit
+              </button>
+            </div>
           </form>
         </div>
       </>
