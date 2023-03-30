@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import FormsTemplate from '../components/FormsTemplate/FormsTemplate';
 
 const dataStorage = [
@@ -13,115 +13,70 @@ const dataStorage = [
 
 const keyName = 'card';
 let keyCounter = 0;
+const FormsPage = () => {
+  const [userName, setUserName] = useState('');
+  const [birthDate, setBirthDate] = useState('');
+  const [contact, setContact] = useState('');
+  const [selectLanguage, setSelectLanguage] = useState('');
 
-class FormsPage extends FormsTemplate {
-  constructor(
-    props:
-      | {
-          NameInput: ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => void;
-          BirthInput: ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => void;
-          LanguageInput: ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) => void;
-          ContactInput: ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => void;
-          SubmitHandler: (event: React.FormEvent<HTMLFormElement>) => void;
-          UserNameState: string;
-          BirthDateState: string;
-          ContactState: string;
-          selectLanguageState: string;
-        }
-      | Readonly<{
-          NameInput: ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => void;
-          BirthInput: ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => void;
-          LanguageInput: ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) => void;
-          ContactInput: ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => void;
-          SubmitHandler: (event: React.FormEvent<HTMLFormElement>) => void;
-          UserNameState: string;
-          BirthDateState: string;
-          ContactState: string;
-          selectLanguageState: string;
-        }>
-  ) {
-    super(props);
-    this.state = {
-      userName: '',
-      birthDate: '',
-      contact: '',
-      selectLanguage: '',
-      rendered: false,
-    };
-  }
-
-  userNameHandler = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('name handler fired');
-
-    this.setState({
-      userName: value,
-    });
-  };
-  dateOfBirthHandler = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      birthDate: value,
-    });
-  };
-
-  contactHandler = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(value);
-    this.setState({
-      contact: value,
-    });
-  };
-  selectLanguageHandler = ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) => {
-    this.setState({
-      selectLanguage: value,
-    });
-  };
-  submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = () => (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // console.log(value);
+    console.log('Before:', dataStorage);
+
     const currentInput = {
-      userName: `${this.state.userName}`,
-      birthDate: `${this.state.birthDate}`,
-      contact: `${this.state.contact}`,
-      selectLanguage: `${this.state.selectLanguage}`,
+      userName: `${userName}`,
+      birthDate: `${birthDate}`,
+      contact: `${contact}`,
+      selectLanguage: `${selectLanguage}`,
       id: `${keyName} ${keyCounter}`,
     };
     dataStorage.push(currentInput);
     keyCounter++;
-    this.setState({
-      rendered: true,
-    });
-    console.log(dataStorage);
+    // this.setState({
+    //   rendered: true,
+    // });
+    console.log('After :', dataStorage);
+  };
+  const userNameHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    setUserName(event.target.value);
   };
 
-  render() {
-    return (
-      <>
-        <FormsTemplate
-          NameInput={this.userNameHandler}
-          BirthInput={this.dateOfBirthHandler}
-          LanguageInput={this.selectLanguageHandler}
-          ContactInput={this.contactHandler}
-          SubmitHandler={this.submitHandler}
-          UserNameState={this.state.userName}
-          BirthDateState={this.state.birthDate}
-          ContactState={this.state.contact}
-          selectLanguageState={this.state.selectLanguage}
-        />
+  const dateOfBirthHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    setBirthDate(event.target.value);
+  };
 
-        {/* <div> */}
-        {dataStorage.map((item) => {
-          return (
-            <div className="newCard" key={item.id}>
-              <div>{item.userName}</div>
-              <div>{item.birthDate}</div>
-              <div>{item.selectLanguage}</div>
-              <div>{item.contact}</div>
-            </div>
-          );
-        })}
-        {/* </div> */}
-      </>
-    );
-  }
-}
+  const contactHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    setContact(event.target.value);
+  };
+  const selectLanguageHandler = (event: ChangeEvent<HTMLSelectElement>) => {
+    setSelectLanguage(event.target.value);
+  };
+
+  return (
+    <>
+      <FormsTemplate
+        NameInput={userNameHandler}
+        BirthInput={dateOfBirthHandler}
+        LanguageInput={selectLanguageHandler}
+        ContactInput={contactHandler}
+        SubmitHandler={submitHandler}
+        UserNameState={userName}
+        BirthDateState={birthDate}
+        ContactState={contact}
+        selectLanguageState={selectLanguage}
+      />
+      {dataStorage.map((item) => {
+        return (
+          <div className="newCard" key={item.id}>
+            <div>{item.userName}</div>
+            <div>{item.birthDate}</div>
+            <div>{item.selectLanguage}</div>
+            <div>{item.contact}</div>
+          </div>
+        );
+      })}
+    </>
+  );
+};
 
 export default FormsPage;
