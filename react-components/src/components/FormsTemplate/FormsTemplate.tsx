@@ -1,16 +1,21 @@
 import React, { ChangeEventHandler, FormEventHandler } from 'react';
 import style from './FormsTemplate.module.css';
+// import { FieldValues, UseFormRegister } from 'react-hook-form';
 
 type IProps = {
   NameInput: ChangeEventHandler<HTMLInputElement> | undefined;
   BirthInput: ChangeEventHandler<HTMLInputElement> | undefined;
   LanguageInput: ChangeEventHandler<HTMLSelectElement> | undefined;
   ContactInput: ChangeEventHandler<HTMLInputElement> | undefined;
+  GenderInput: ChangeEventHandler<HTMLInputElement> | undefined;
+  FileUpload: ChangeEventHandler<HTMLInputElement> | undefined;
   SubmitHandler: FormEventHandler<HTMLFormElement>;
   UserNameState: string;
   BirthDateState: string;
-  ContactState: string;
+  ContactState: string[];
+  GenderState: string;
   selectLanguageState: string;
+  // Register: UseFormRegister<FieldValues>;
 };
 
 type ILanguage = {
@@ -60,20 +65,44 @@ const FormsTemplate = (props: IProps) => {
             <legend>Contact with me via</legend>
             <label>
               sms
-              <input type="checkbox" name="checkbox" onChange={props.ContactInput}></input>
+              <input
+                type="checkbox"
+                name="checkbox"
+                value="sms"
+                id="c01"
+                onChange={props.ContactInput}
+              ></input>
             </label>
             <label>
               e-mail
-              <input type="checkbox" name="checkbox" onChange={props.ContactInput}></input>
+              <input
+                type="checkbox"
+                name="checkbox"
+                onChange={props.ContactInput}
+                value="e-mail"
+                id="c02"
+              ></input>
             </label>
           </fieldset>
           <fieldset>
             <legend>Gender:</legend>
             <div>
-              <input type="radio" name="gender" value="male" id="female"></input>
+              <input
+                type="radio"
+                name="gender"
+                value="male"
+                id="male"
+                onChange={props.GenderInput}
+              ></input>
               <label htmlFor="male">Male</label>
             </div>
-            <input type="radio" name="gender" value="female" id="female"></input>
+            <input
+              type="radio"
+              name="gender"
+              value="female"
+              id="female"
+              onChange={props.GenderInput}
+            ></input>
             <label htmlFor="female">Female</label>
           </fieldset>
           <div>
@@ -89,7 +118,7 @@ const FormsTemplate = (props: IProps) => {
 
           <label>
             Upload Image
-            <input type="file" name="file"></input>
+            <input type="file" name="file" onChange={props.FileUpload}></input>
           </label>
           <div className={style.button_wrapper}>
             <button className={style.submit_button} type="submit">
