@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import FormsTemplate from '../components/FormsTemplate/FormsTemplate';
 import style from './FormsPage.module.css';
+import { FieldValues, SubmitHandler } from 'react-hook-form';
 // import { useForm } from 'react-hook-form';
 
 const keyName = 'card';
@@ -14,6 +15,8 @@ const FormsPage = () => {
   const [gender, setGender] = useState('');
   const [selectLanguage, setSelectLanguage] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<Blob | MediaSource | File | null>(null);
+
   const [allData, setAllData] = useState([
     {
       userName: '',
@@ -22,7 +25,7 @@ const FormsPage = () => {
       contact: [''],
       selectLanguage: '',
       id: '',
-      imageUrl: '',
+      // imageUrl: URL.createObjectURL(selectedImage),
     },
   ]);
 
@@ -38,7 +41,10 @@ const FormsPage = () => {
   }, [contactMail]);
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+    // const submitHandler = (data: SubmitHandler<FieldValues>) => {
     event.preventDefault();
+    // console.log(data);
+
     setIsSubmitted(true);
     const currentInput = {
       userName: `${userName}`,
@@ -46,8 +52,8 @@ const FormsPage = () => {
       gender: `${gender}`,
       contact: [`${contact}`],
       selectLanguage: `${selectLanguage}`,
-      imageUrl: `${selectedImage}`,
-      id: `${keyName} ${keyCounter}`,
+      id: `${keyName}${keyCounter}`,
+      imageUrl: { selectedImage },
     };
     isSubmitted
       ? setAllData((prevState) => [...prevState, currentInput])
@@ -77,12 +83,17 @@ const FormsPage = () => {
     setGender(event.target.value);
   };
 
-  const [selectedImage, setSelectedImage] = useState<Blob | MediaSource>('');
   const fileUpload = (event: ChangeEvent<HTMLInputElement>) => {
-    event.target.files instanceof FileList ? setSelectedImage(event.target.files[0]) : null;
-    console.log(event);
+    event.target.files instanceof File ? setSelectedImage(event.target.files[0]) : null;
+    console.log(selectedImage);
   };
   // const { register } = useForm();
+
+  const newSubmit = (data: unknown) => {
+    const dataCollection = JSON.stringify(data);
+    console.log(dataCollection);
+    console.log(data);
+  };
 
   return (
     <>
@@ -99,20 +110,23 @@ const FormsPage = () => {
         ContactState={contact}
         GenderState={gender}
         selectLanguageState={selectLanguage}
+        NewSubmit={newSubmit}
         // Register={register}
       />
-      <div>
+      <div className={style.cardSection}>
         {isSubmitted &&
           allData.map((item) => {
             return (
               <div className={style.newCard} key={item.id}>
-                <div>{item.userName}</div>
-                <div>{item.birthDate}</div>
-                <div>{item.contact}</div>
-                <div>{item.gender}</div>
-                <div>{item.selectLanguage}</div>
+                <div>Name: {item.userName}</div>
+                <div>Birthday: {item.birthDate}</div>
+                <div>Preferred method of contact: {item.contact}</div>
+                <div>Gender: {item.gender}</div>
+                <div>I`m a {item.selectLanguage} native speaker</div>
                 <div>
-                  <img src={URL.createObjectURL(selectedImage)}></img>
+                  <img
+                  // src={URL.createObjectURL(item.imageUrl)}
+                  ></img>
                 </div>
               </div>
             );

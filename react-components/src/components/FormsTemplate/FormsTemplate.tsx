@@ -1,6 +1,7 @@
 import React, { ChangeEventHandler, FormEventHandler } from 'react';
 import style from './FormsTemplate.module.css';
 // import { FieldValues, UseFormRegister } from 'react-hook-form';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 type IProps = {
   NameInput: ChangeEventHandler<HTMLInputElement> | undefined;
@@ -10,6 +11,8 @@ type IProps = {
   GenderInput: ChangeEventHandler<HTMLInputElement> | undefined;
   FileUpload: ChangeEventHandler<HTMLInputElement> | undefined;
   SubmitHandler: FormEventHandler<HTMLFormElement>;
+  // SubmitHandler: SubmitHandler<FieldValues>;
+  NewSubmit: SubmitHandler<FieldValues>;
   UserNameState: string;
   BirthDateState: string;
   ContactState: string[];
@@ -34,18 +37,28 @@ const languageValues: ILanguageArray = [
 ];
 
 const FormsTemplate = (props: IProps) => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm({
+    mode: 'onBlur',
+  });
+
   return (
     <>
       <div>
-        <form className={style.wrapper} onSubmit={props.SubmitHandler}>
+        {/* <form className={style.wrapper} onSubmit={props.SubmitHandler}> */}
+        <form className={style.wrapper} onSubmit={handleSubmit(props.NewSubmit)}>
           <div className={style.name}>
             Name:
             <label>
               <input
-                className={style.input_name}
-                name="userName"
-                value={props.UserNameState}
-                onChange={props.NameInput}
+                {...register('name', {
+                  required: true,
+                  minLength: { value: 2, message: 'Minimal lenght for name field is 2 symbols' },
+                })}
               ></input>
             </label>
           </div>
@@ -53,11 +66,10 @@ const FormsTemplate = (props: IProps) => {
             Date of birth:
             <label>
               <input
-                className={style.input_date}
                 type="date"
-                name="date"
-                value={props.BirthDateState}
-                onChange={props.BirthInput}
+                {...register('birthDay', {
+                  required: 'You missed your birthday',
+                })}
               ></input>
             </label>
           </div>
@@ -67,20 +79,18 @@ const FormsTemplate = (props: IProps) => {
               sms
               <input
                 type="checkbox"
-                name="checkbox"
-                value="sms"
-                id="c01"
-                onChange={props.ContactInput}
+                {...register('sms', {
+                  // required:,
+                })}
               ></input>
             </label>
             <label>
               e-mail
               <input
                 type="checkbox"
-                name="checkbox"
-                onChange={props.ContactInput}
-                value="e-mail"
-                id="c02"
+                {...register('e-mail', {
+                  // required:,
+                })}
               ></input>
             </label>
           </fieldset>
@@ -124,6 +134,18 @@ const FormsTemplate = (props: IProps) => {
             <button className={style.submit_button} type="submit">
               Submit
             </button>
+          </div>
+          <div style={{ height: 20 }}>
+            {errors?.name && (
+              <p style={{ color: 'red' }}>
+                {errors?.name.message?.toString() || 'Fill in name field'}
+              </p>
+            )}
+            {errors?.birthDay && (
+              <p style={{ color: 'red' }}>
+                {errors?.birthDay.message?.toString() || 'Date is required'}
+              </p>
+            )}
           </div>
         </form>
       </div>

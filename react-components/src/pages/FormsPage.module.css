@@ -1,3 +1,14 @@
 .newCard {
+  display: flex;
+  flex-flow: column;
+  width: 300px;
   border: 2px solid #008000;
+}
+
+.cardSection {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80vw;
+  justify-content: center;
+  gap: 15px;
 }
