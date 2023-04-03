@@ -1,24 +1,10 @@
-import React, { ChangeEventHandler, FormEventHandler } from 'react';
+import React, { ChangeEventHandler } from 'react';
 import style from './FormsTemplate.module.css';
-// import { FieldValues, UseFormRegister } from 'react-hook-form';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 type IProps = {
-  NameInput: ChangeEventHandler<HTMLInputElement> | undefined;
-  BirthInput: ChangeEventHandler<HTMLInputElement> | undefined;
-  LanguageInput: ChangeEventHandler<HTMLSelectElement> | undefined;
-  ContactInput: ChangeEventHandler<HTMLInputElement> | undefined;
-  GenderInput: ChangeEventHandler<HTMLInputElement> | undefined;
   FileUpload: ChangeEventHandler<HTMLInputElement> | undefined;
-  SubmitHandler: FormEventHandler<HTMLFormElement>;
-  // SubmitHandler: SubmitHandler<FieldValues>;
   NewSubmit: SubmitHandler<FieldValues>;
-  UserNameState: string;
-  BirthDateState: string;
-  ContactState: string[];
-  GenderState: string;
-  selectLanguageState: string;
-  // Register: UseFormRegister<FieldValues>;
 };
 
 type ILanguage = {
@@ -30,6 +16,7 @@ type ILanguage = {
 type ILanguageArray = Array<ILanguage>;
 
 const languageValues: ILanguageArray = [
+  { id: 'null', value: '', title: 'select option' },
   { id: 'en', value: 'english', title: 'English' },
   { id: 'kl', value: 'klingon', title: 'Klingon' },
   { id: 'dw', value: 'dwarvish', title: 'Dwarvish' },
@@ -41,7 +28,7 @@ const FormsTemplate = (props: IProps) => {
     register,
     formState: { errors },
     handleSubmit,
-    reset,
+    // reset,
   } = useForm({
     mode: 'onBlur',
   });
@@ -49,7 +36,6 @@ const FormsTemplate = (props: IProps) => {
   return (
     <>
       <div>
-        {/* <form className={style.wrapper} onSubmit={props.SubmitHandler}> */}
         <form className={style.wrapper} onSubmit={handleSubmit(props.NewSubmit)}>
           <div className={style.name}>
             Name:
@@ -79,8 +65,12 @@ const FormsTemplate = (props: IProps) => {
               sms
               <input
                 type="checkbox"
-                {...register('sms', {
-                  // required:,
+                value="sms"
+                {...register('contact', {
+                  required: {
+                    value: true,
+                    message: 'Contact is required',
+                  },
                 })}
               ></input>
             </label>
@@ -88,8 +78,12 @@ const FormsTemplate = (props: IProps) => {
               e-mail
               <input
                 type="checkbox"
-                {...register('e-mail', {
-                  // required:,
+                value="e-mail"
+                {...register('contact', {
+                  required: {
+                    value: true,
+                    message: 'Contact is required',
+                  },
                 })}
               ></input>
             </label>
@@ -99,25 +93,36 @@ const FormsTemplate = (props: IProps) => {
             <div>
               <input
                 type="radio"
-                name="gender"
                 value="male"
-                id="male"
-                onChange={props.GenderInput}
+                {...register('gender', {
+                  required: {
+                    value: true,
+                    message: 'Gender is required',
+                  },
+                })}
               ></input>
               <label htmlFor="male">Male</label>
             </div>
             <input
               type="radio"
-              name="gender"
               value="female"
-              id="female"
-              onChange={props.GenderInput}
+              {...register('gender', {
+                required: {
+                  value: true,
+                  message: 'Gender is required',
+                },
+              })}
             ></input>
             <label htmlFor="female">Female</label>
           </fieldset>
           <div>
             Native Language
-            <select value={props.selectLanguageState} onChange={props.LanguageInput} name="test">
+            <select
+              defaultValue=""
+              {...register('language', {
+                required: 'You did`t select language',
+              })}
+            >
               {languageValues.map(({ id, value, title }) => (
                 <option key={id} value={value}>
                   {title}
@@ -144,6 +149,26 @@ const FormsTemplate = (props: IProps) => {
             {errors?.birthDay && (
               <p style={{ color: 'red' }}>
                 {errors?.birthDay.message?.toString() || 'Date is required'}
+              </p>
+            )}
+            {errors?.language && (
+              <p style={{ color: 'red' }}>
+                {errors?.language.message?.toString() || 'Select language'}
+              </p>
+            )}
+            {errors?.checkbox && (
+              <p style={{ color: 'red' }}>
+                {errors?.checkbox && 'Choose sms or e-mail as contact option'}
+              </p>
+            )}
+            {errors?.gender && (
+              <p style={{ color: 'red' }}>
+                {errors?.gender.message?.toString() || 'Select gender'}
+              </p>
+            )}
+            {errors?.contact && (
+              <p style={{ color: 'red' }}>
+                {errors?.contact.message?.toString() || 'You missed contacty field'}
               </p>
             )}
           </div>
