@@ -33,6 +33,12 @@ const FormsTemplate = (props: IProps) => {
     mode: 'onBlur',
   });
 
+  const validateDate = (value: Date) => {
+    const selected = new Date(value).getFullYear();
+    const now = new Date().getFullYear();
+    return now - selected >= 14;
+  };
+
   return (
     <>
       <div>
@@ -44,6 +50,7 @@ const FormsTemplate = (props: IProps) => {
                 {...register('name', {
                   required: true,
                   minLength: { value: 2, message: 'Minimal lenght for name field is 2 symbols' },
+                  pattern: { value: /[a-zA-Z]/, message: 'Use letters please' },
                 })}
               ></input>
             </label>
@@ -53,8 +60,10 @@ const FormsTemplate = (props: IProps) => {
             <label>
               <input
                 type="date"
+                min=""
                 {...register('birthDay', {
                   required: 'You missed your birthday',
+                  validate: validateDate,
                 })}
               ></input>
             </label>
@@ -170,6 +179,9 @@ const FormsTemplate = (props: IProps) => {
               <p style={{ color: 'red' }}>
                 {errors?.contact.message?.toString() || 'You missed contacty field'}
               </p>
+            )}
+            {errors?.birthDay?.type === 'validate' && (
+              <p style={{ color: 'red' }}> You should be at least 14 years old </p>
             )}
           </div>
         </form>
