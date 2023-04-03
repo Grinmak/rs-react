@@ -17,6 +17,7 @@ const FormsPage = () => {
       contact: [''],
       selectLanguage: '',
       id: '',
+      imgSrc: '',
       // imageUrl: URL.createObjectURL(selectedImage),
     },
   ]);
@@ -32,6 +33,7 @@ const FormsPage = () => {
     gender,
     contact,
     language,
+    file,
     // id,
   }) => {
     setIsSubmitted(true);
@@ -42,14 +44,14 @@ const FormsPage = () => {
       contact: [contact],
       selectLanguage: language,
       id: `${keyName}${keyCounter}`,
-      // imageUrl: { selectedImage },
+      imgSrc: URL.createObjectURL(file[0]),
     };
     isSubmitted
       ? setAllData((prevState) => [...prevState, currentInput])
       : setAllData([currentInput]);
     keyCounter++;
 
-    console.log(name);
+    console.log(currentInput);
   };
 
   return (
@@ -64,11 +66,9 @@ const FormsPage = () => {
                 <div>Birthday: {item.birthDate}</div>
                 <div>Preferred method of contact: {item.contact}</div>
                 <div>Gender: {item.gender}</div>
-                <div>I`m a {item.selectLanguage} native speaker</div>
+                <div>I speak {item.selectLanguage} </div>
                 <div>
-                  <img
-                  // src={URL.createObjectURL(item.imageUrl)}
-                  ></img>
+                  <img src={item.imgSrc}></img>
                 </div>
               </div>
             );

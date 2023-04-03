@@ -142,7 +142,12 @@ const FormsTemplate = (props: IProps) => {
 
           <label>
             Upload Image
-            <input type="file" name="file" onChange={props.FileUpload}></input>
+            <input
+              type="file"
+              {...register('file', {
+                required: true,
+              })}
+            ></input>
           </label>
           <div className={style.button_wrapper}>
             <button className={style.submit_button} type="submit">
