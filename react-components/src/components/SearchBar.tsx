@@ -7,59 +7,38 @@ const TextInput = styled(TextField)`
   justifycontent: center;
 `;
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface IType {}
-interface IState {
-  userInput: string;
-}
+const SearchBar = () => {
+  const searchFieldRef = React.useRef<HTMLInputElement>(null);
+  React.useEffect(() => {
+    const searchDiv = searchFieldRef.current;
+    if (searchDiv) {
+      searchDiv.value = localStorage.getItem('search') || '';
+      return () => {
+        localStorage.setItem('search', searchDiv.value);
+      };
+    }
+  });
 
-class SearchBar extends React.Component<IType, IState> {
-  constructor(props: string) {
-    super(props);
-
-    this.state = {
-      userInput: localStorage.getItem('search') || '',
-    };
-  }
-
-  componentDidMount() {
-    this.setState({
-      userInput: `${localStorage.getItem('search')}`,
-    });
-  }
-
-  componentWillUnmount() {
-    localStorage.setItem('search', this.state.userInput);
-  }
-
-  render() {
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      this.setState({
-        userInput: event.target.value,
-      });
-    };
-
-    return (
-      <TextInput
-        sx={{
-          width: { lg: '30%', sm: '70%' },
-        }}
-        label="Search"
-        multiline
-        id="search-field"
-        variant="outlined"
-        onChange={handleChange}
-        value={this.state.userInput}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <SearchIcon />
-            </InputAdornment>
-          ),
-        }}
-      />
-    );
-  }
-}
+  return (
+    <TextInput
+      sx={{
+        width: { lg: '30%', sm: '70%' },
+      }}
+      label="Search"
+      multiline
+      id="search-field"
+      variant="outlined"
+      inputRef={searchFieldRef}
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
+            <SearchIcon />
+          </InputAdornment>
+        ),
+      }}
+    />
+  );
+};
+// }
 
 export default SearchBar;
