@@ -67,8 +67,8 @@ const FormsPage = () => {
                 <div>Preferred method of contact: {item.contact}</div>
                 <div>Gender: {item.gender}</div>
                 <div>I speak {item.selectLanguage} </div>
-                <div>
-                  <img src={item.imgSrc}></img>
+                <div className={style.img_wrapper}>
+                  <img className={style.card_image} src={item.imgSrc}></img>
                 </div>
               </div>
             );
