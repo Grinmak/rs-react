@@ -50,7 +50,7 @@ const FormsPage = () => {
       ? setAllData((prevState) => [...prevState, currentInput])
       : setAllData([currentInput]);
     keyCounter++;
-
+    alert('New card will be created');
     console.log(currentInput);
   };
 
