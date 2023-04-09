@@ -13,15 +13,27 @@ type IProps = {
 // };
 
 const RickAndMortyCard = (props: IProps) => {
+  const [clickedCard, setClickedCard] = useState<IRickAndMortyCard[]>();
   const [modalActive, setModalActive] = useState<boolean>(false);
   const propsData = props.DataFromApi;
+
+  const ModalClickHandler = (itemId: string) => {
+    setModalActive(true);
+    const currentCardData = propsData.filter((item) => item.id == itemId);
+    setClickedCard(currentCardData);
+    // console.log(clickedCard);
+  };
 
   return (
     <>
       <div className={style.cards_area}>
         {propsData.map((item) => {
           return (
-            <div className={style.wrapper} key={item.id} onClick={() => setModalActive(true)}>
+            <div
+              className={style.wrapper}
+              key={item.id}
+              onClick={() => ModalClickHandler(`${item.id}`)}
+            >
               <div>
                 <img className={style.card_image} src={item.image}></img>
               </div>
@@ -31,7 +43,7 @@ const RickAndMortyCard = (props: IProps) => {
           );
         })}
       </div>
-      <ModalWindow active={modalActive} setActive={setModalActive} />
+      <ModalWindow active={modalActive} setActive={setModalActive} selectedCard={clickedCard} />
     </>
   );
   // }

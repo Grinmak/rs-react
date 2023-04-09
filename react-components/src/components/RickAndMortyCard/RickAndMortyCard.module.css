@@ -10,7 +10,7 @@
   box-shadow: 2px 2px 2px 2px #808080a8;
   text-align: center;
   position: relative;
-  z-index: 1;
+  /* z-index: 1; */
 }
 
 .species_label {
