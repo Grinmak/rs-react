@@ -4,9 +4,9 @@ import ComponentWithChildren from '../types/ComponentWithChildren';
 
 const StyledContent = styled('main')`
   // flex: 1 1 auto,
-  display: flex,
-  justifyContent: center,
-  alignItems: center,
+  // display: flex,
+  // justifyContent: center,
+  // alignItems: center,
   // flexDirection: column,
 `;
 

@@ -62,7 +62,8 @@
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-var-reqiures": "off",
     "react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "quote-props": [1, "as-needed"]
   },
   "settings": {
     "react": {

@@ -1,0 +1,27 @@
+.cards_area {
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.wrapper {
+  padding: 10px;
+  box-shadow: 2px 2px 2px 2px #808080a8;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.species_label {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  background: #fff;
+  padding: 5px 15px;
+  border-radius: 10px;
+}
+
+.wrapper:hover {
+  cursor: pointer;
+}

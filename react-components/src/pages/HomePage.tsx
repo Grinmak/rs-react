@@ -1,29 +1,19 @@
 import SearchBar from '../components/SearchBar';
-import CardTemplate from '../components/CardTemplate';
-import CardData from '../components/CardData';
-import { Box } from '@mui/material';
+import { useEffect, useState } from 'react';
+import RickAndMortyCard from '../components/RickAndMortyCard';
 
 const HomePage = () => {
+  const [dataFromApi, setDataFromApi] = useState([]);
+  useEffect(() => {
+    fetch('https://rickandmortyapi.com/api/character')
+      .then((res) => res.json())
+      .then((dataBase) => setDataFromApi(dataBase.results));
+  }, []);
+
   return (
     <>
       <SearchBar />
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          columnGap: '10px',
-          width: {
-            lg: '40vw',
-            md: '60vw',
-            sm: '100vw',
-          },
-          justifyContent: 'space-around',
-        }}
-      >
-        <CardTemplate {...CardData[0]} />
-        <CardTemplate {...CardData[1]} />
-        <CardTemplate {...CardData[2]} />
-      </Box>
+      <RickAndMortyCard DataFromApi={dataFromApi} />
     </>
   );
 };

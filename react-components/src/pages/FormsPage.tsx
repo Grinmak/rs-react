@@ -51,7 +51,7 @@ const FormsPage = () => {
       : setAllData([currentInput]);
     keyCounter++;
     alert('New card will be created');
-    console.log(currentInput);
+    // console.log(currentInput);
   };
 
   return (

@@ -8,10 +8,11 @@ const ContentWrapper = styled(Box)`
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  row-gap: 15px;
+  row-gap: 35px;
   width: 100vw;
   justify-content: center;
   align-items: center;
+  margin-top: 80px;
 `;
 
 interface ComponentWithChildren {
