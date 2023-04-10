@@ -12,6 +12,7 @@ type ISearchBar = {
 };
 
 const SearchBar = (props: ISearchBar) => {
+  // const [inputValidation, setInputValidation] = useState({ helperText: '', error: false });
   const searchFieldRef = React.useRef<HTMLInputElement>(null);
   React.useEffect(() => {
     const searchDiv = searchFieldRef.current;
@@ -24,14 +25,26 @@ const SearchBar = (props: ISearchBar) => {
     }
   });
   const SubmitHandler = () => {
+    // if (!inputValidation.error) {
     const searchDiv = searchFieldRef.current;
-    // searchDiv && (searchDiv.value = localStorage.getItem('search') || '');
     props.searchValue(searchDiv!.value);
-    // console.log('submitAction', searchFieldRef!.current!.value);
+    // }
   };
+
+  // const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+  //   console.log('input has changed', event.target.value);
+  //   if (/([a-zA-z]{20,})$/.test(event.target.value)) {
+  //     setInputValidation({ helperText: '', error: false });
+  //   } else {
+  //     setInputValidation({ helperText: 'Symbols not allowed', error: true });
+  //   }
+  // };
 
   return (
     <TextInput
+      // helperText={inputValidation.helperText}
+      // error={inputValidation.error}
+      // onChange={onChangeHandler}
       sx={{
         width: { lg: '30%', sm: '70%' },
       }}
