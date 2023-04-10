@@ -1,23 +1,34 @@
-import { InputAdornment, styled, TextField } from '@mui/material';
+import { Button, InputAdornment, styled, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 
 const TextInput = styled(TextField)`
   display: flex;
   justifycontent: center;
 `;
 
-const SearchBar = () => {
+type ISearchBar = {
+  searchValue: Dispatch<SetStateAction<string>>;
+};
+
+const SearchBar = (props: ISearchBar) => {
   const searchFieldRef = React.useRef<HTMLInputElement>(null);
   React.useEffect(() => {
     const searchDiv = searchFieldRef.current;
     if (searchDiv) {
       searchDiv.value = localStorage.getItem('search') || '';
+      props.searchValue(searchDiv.value);
       return () => {
         localStorage.setItem('search', searchDiv.value);
       };
     }
   });
+  const SubmitHandler = () => {
+    const searchDiv = searchFieldRef.current;
+    // searchDiv && (searchDiv.value = localStorage.getItem('search') || '');
+    props.searchValue(searchDiv!.value);
+    // console.log('submitAction', searchFieldRef!.current!.value);
+  };
 
   return (
     <TextInput
@@ -32,7 +43,9 @@ const SearchBar = () => {
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
-            <SearchIcon />
+            <Button onClick={SubmitHandler}>
+              <SearchIcon />
+            </Button>
           </InputAdornment>
         ),
       }}
