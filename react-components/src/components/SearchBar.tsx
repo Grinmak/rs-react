@@ -9,6 +9,7 @@ const TextInput = styled(TextField)`
 
 type ISearchBar = {
   searchValue: Dispatch<SetStateAction<string>>;
+  loadingMessage: Dispatch<SetStateAction<boolean>>;
 };
 
 const SearchBar = (props: ISearchBar) => {
@@ -24,6 +25,7 @@ const SearchBar = (props: ISearchBar) => {
     }
   });
   const SubmitHandler = () => {
+    props.loadingMessage(true);
     const searchDiv = searchFieldRef.current;
     props.searchValue(searchDiv!.value);
   };
