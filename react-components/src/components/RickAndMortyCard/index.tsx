@@ -14,10 +14,11 @@ const RickAndMortyCard = (props: IProps) => {
   const [modalActive, setModalActive] = useState<boolean>(false);
   const propsData = props.DataFromApi;
 
-  const ModalClickHandler = (itemId: string) => {
+  const ModalClickHandler = (itemName: string) => {
     setModalActive(true);
-    const currentCardData = propsData.filter((item) => item.id == itemId);
-    setClickedCard(currentCardData);
+    fetch(`https://rickandmortyapi.com/api/character/?name=${itemName}`)
+      .then((res) => res.json())
+      .then((dataBase) => dataBase.results && setClickedCard(dataBase.results));
   };
 
   return (
@@ -28,7 +29,7 @@ const RickAndMortyCard = (props: IProps) => {
             <div
               className={style.wrapper}
               key={item.id}
-              onClick={() => ModalClickHandler(`${item.id}`)}
+              onClick={() => ModalClickHandler(`${item.name}`)}
             >
               <div>
                 <img className={style.card_image} src={item.image}></img>
