@@ -8,9 +8,6 @@ type IDataFromApi = Array<IRickAndMortyCard>;
 type IProps = {
   DataFromApi: IDataFromApi;
 };
-// type IProps = {
-//   DataFromApi: IRickAndMortyCard;
-// };
 
 const RickAndMortyCard = (props: IProps) => {
   const [clickedCard, setClickedCard] = useState<IRickAndMortyCard[]>();
@@ -21,7 +18,6 @@ const RickAndMortyCard = (props: IProps) => {
     setModalActive(true);
     const currentCardData = propsData.filter((item) => item.id == itemId);
     setClickedCard(currentCardData);
-    // console.log(clickedCard);
   };
 
   return (

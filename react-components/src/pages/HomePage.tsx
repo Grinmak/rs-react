@@ -5,7 +5,6 @@ import RickAndMortyCard from '../components/RickAndMortyCard';
 const HomePage = () => {
   const [userSearchValue, setUserSearchValue] = useState('');
   const [dataFromApi, setDataFromApi] = useState([]);
-  const [listOfCharacher, setListOfCharacher] = useState([]);
 
   useEffect(() => {
     if (userSearchValue === '') {
@@ -20,15 +19,6 @@ const HomePage = () => {
     }
   }, [userSearchValue]);
 
-  useEffect(() => {
-    fetch('https://rickandmortyapi.com/api/character')
-      .then((res) => res.json())
-      .then((dataBase) => setListOfCharacher(dataBase.results));
-  }, []);
-
-  // useEffect(() => {
-  //   console.log('SearchState:', userSearchValue);
-  // }, [userSearchValue]);
   return (
     <>
       <SearchBar searchValue={setUserSearchValue} />
