@@ -1,0 +1,49 @@
+.modal_window {
+  height: 100vh;
+  min-width: 100vw;
+  background-color: #000000a5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  /* z-index: 0; */
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.modal_window.active {
+  opacity: 1;
+  pointer-events: all;
+  /* z-index: 1; */
+}
+
+.content {
+  width: 40vw;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.851);
+  transform: scale(0.5);
+  transition: 0.4s all;
+  padding: 15px;
+  /* z-index: 2; */
+}
+
+.content.active {
+  transform: scale(1);
+}
+
+.close {
+  position: absolute;
+  top: -30px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.851);
+  padding: 0 5px;
+  border-radius: 10%;
+}
+.close:hover {
+  cursor: pointer;
+  background-color: #1782cfd5;
+  color: #fff;
+}
