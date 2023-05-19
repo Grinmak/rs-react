@@ -3,10 +3,17 @@ import FormsTemplate from '../components/FormsTemplate/FormsTemplate';
 import style from './FormsPage.module.css';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
 
+//redux related import
+import { useAppDispatch } from '../hooks';
+import { setIsSubmitted } from '../store/submitStateSlice';
+import { useAppSelector } from '../hooks';
+
 const keyName = 'card';
 let keyCounter = 0;
 const FormsPage: React.FC = () => {
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const dispatch = useAppDispatch();
+  const isSubmitted = useAppSelector((state) => state.submitState.isSubmitted);
+  // const [isSubmitted, setIsSubmitted] = useState(false);
   // const [selectedImage, setSelectedImage] = useState<Blob | MediaSource | File | null>(null);
 
   const [allData, setAllData] = useState([
@@ -36,7 +43,8 @@ const FormsPage: React.FC = () => {
     file,
     // id,
   }) => {
-    setIsSubmitted(true);
+    dispatch(setIsSubmitted(true));
+    // setIsSubmitted(true);
     const currentInput = {
       userName: name,
       birthDate: birthDay,
