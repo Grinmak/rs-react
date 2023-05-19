@@ -3,7 +3,7 @@ import style from './FormsTemplate.module.css';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 type IProps = {
-  FileUpload: ChangeEventHandler<HTMLInputElement> | undefined;
+  // FileUpload: ChangeEventHandler<HTMLInputElement> | undefined;
   NewSubmit: SubmitHandler<FieldValues>;
 };
 
@@ -51,8 +51,7 @@ const FormsTemplate = (props: IProps) => {
                   required: true,
                   minLength: { value: 2, message: 'Minimal lenght for name field is 2 symbols' },
                   pattern: { value: /[a-zA-Z]/, message: 'Use letters please' },
-                })}
-              ></input>
+                })}></input>
             </label>
           </div>
           <div className={style.date}>
@@ -64,8 +63,7 @@ const FormsTemplate = (props: IProps) => {
                 {...register('birthDay', {
                   required: 'You missed your birthday',
                   validate: validateDate,
-                })}
-              ></input>
+                })}></input>
             </label>
           </div>
           <fieldset>
@@ -80,8 +78,7 @@ const FormsTemplate = (props: IProps) => {
                     value: true,
                     message: 'Contact is required',
                   },
-                })}
-              ></input>
+                })}></input>
             </label>
             <label>
               e-mail
@@ -93,8 +90,7 @@ const FormsTemplate = (props: IProps) => {
                     value: true,
                     message: 'Contact is required',
                   },
-                })}
-              ></input>
+                })}></input>
             </label>
           </fieldset>
           <fieldset>
@@ -108,8 +104,7 @@ const FormsTemplate = (props: IProps) => {
                     value: true,
                     message: 'Gender is required',
                   },
-                })}
-              ></input>
+                })}></input>
               <label htmlFor="male">Male</label>
             </div>
             <input
@@ -120,8 +115,7 @@ const FormsTemplate = (props: IProps) => {
                   value: true,
                   message: 'Gender is required',
                 },
-              })}
-            ></input>
+              })}></input>
             <label htmlFor="female">Female</label>
           </fieldset>
           <div>
@@ -130,8 +124,7 @@ const FormsTemplate = (props: IProps) => {
               defaultValue=""
               {...register('language', {
                 required: 'You did`t select language',
-              })}
-            >
+              })}>
               {languageValues.map(({ id, value, title }) => (
                 <option key={id} value={value}>
                   {title}
@@ -146,8 +139,7 @@ const FormsTemplate = (props: IProps) => {
               type="file"
               {...register('file', {
                 required: true,
-              })}
-            ></input>
+              })}></input>
           </label>
           <div className={style.button_wrapper}>
             <button className={style.submit_button} type="submit">

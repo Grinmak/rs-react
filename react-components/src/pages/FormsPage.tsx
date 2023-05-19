@@ -5,9 +5,9 @@ import { FieldValues, SubmitHandler } from 'react-hook-form';
 
 const keyName = 'card';
 let keyCounter = 0;
-const FormsPage = () => {
+const FormsPage: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<Blob | MediaSource | File | null>(null);
+  // const [selectedImage, setSelectedImage] = useState<Blob | MediaSource | File | null>(null);
 
   const [allData, setAllData] = useState([
     {
@@ -22,10 +22,10 @@ const FormsPage = () => {
     },
   ]);
 
-  const fileUpload = (event: ChangeEvent<HTMLInputElement>) => {
-    event.target.files instanceof File ? setSelectedImage(event.target.files[0]) : null;
-    console.log(selectedImage);
-  };
+  // const fileUpload = (event: ChangeEvent<HTMLInputElement>) => {
+  //   event.target.files instanceof File ? setSelectedImage(event.target.files[0]) : null;
+  //   console.log('selectedImage:', selectedImage);
+  // };
 
   const newSubmit: SubmitHandler<FieldValues> = ({
     name,
@@ -56,7 +56,7 @@ const FormsPage = () => {
 
   return (
     <>
-      <FormsTemplate FileUpload={fileUpload} NewSubmit={newSubmit} />
+      <FormsTemplate NewSubmit={newSubmit} />
       <div className={style.cardSection}>
         {isSubmitted &&
           allData.map((item) => {
