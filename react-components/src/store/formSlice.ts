@@ -1,42 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-type IFormItem = {
-  userName: string;
-  birthDate: string;
-  gender: string;
-  contact: string[];
-  selectLanguage: string;
-  id: string;
-  imgSrc: string;
-};
+import IFormFields from '../types/IFormFields';
 
 type IFormList = {
-  formList: Array<IFormItem>;
+  formList: Array<IFormFields>;
 };
 
 const initialState: IFormList = {
-  formList: [
-    {
-      userName: '',
-      birthDate: '',
-      gender: '',
-      contact: [''],
-      selectLanguage: '',
-      id: '',
-      imgSrc: '',
-    },
-  ],
+  formList: [],
 };
 
 const formSlice = createSlice({
   name: 'formSlice',
   initialState,
   reducers: {
-    // fileUpload(state, action){
-    //   event.target.files instanceof File ? setSelectedImage(event.target.files[0]) : null;
-    //   console.log(selectedImage);
-    // };
-    // },
-    // newSubmit(state,ation){},
+    newSubmit: (state, action: PayloadAction<IFormFields>) => {
+      state.formList.push(action.payload);
+      alert('New card will be created');
+    },
   },
 });
+
+export const { newSubmit } = formSlice.actions;
+export default formSlice.reducer;

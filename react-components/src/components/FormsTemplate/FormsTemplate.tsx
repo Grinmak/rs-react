@@ -1,17 +1,10 @@
-import React, { ChangeEventHandler } from 'react';
+import React from 'react';
 import style from './FormsTemplate.module.css';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-
-type IProps = {
-  // FileUpload: ChangeEventHandler<HTMLInputElement> | undefined;
-  NewSubmit: SubmitHandler<FieldValues>;
-};
-
-type ILanguage = {
-  id: string;
-  value: string;
-  title: string;
-};
+import { useForm } from 'react-hook-form';
+import { useAppDispatch } from '../../hooks';
+import { newSubmit } from '../../store/formSlice';
+import IFormFields from '../../types/IFormFields';
+import ILanguage from '../../types/Ilanguage';
 
 type ILanguageArray = Array<ILanguage>;
 
@@ -23,26 +16,39 @@ const languageValues: ILanguageArray = [
   { id: 'gl', value: 'galach', title: 'Galach' },
 ];
 
-const FormsTemplate = (props: IProps) => {
+const keyName = 'card';
+let keyCounter = 0;
+
+const FormsTemplate: React.FC = () => {
   const {
     register,
     formState: { errors },
     handleSubmit,
-    // reset,
-  } = useForm({
+    reset,
+  } = useForm<IFormFields>({
     mode: 'onBlur',
   });
 
-  const validateDate = (value: Date) => {
+  const dispatch = useAppDispatch();
+
+  const validateDate = (value: string) => {
     const selected = new Date(value).getFullYear();
     const now = new Date().getFullYear();
     return now - selected >= 14;
   };
 
+  const handler = (data: IFormFields) => {
+    data.id = `${keyName}${keyCounter}`;
+    data.file = URL.createObjectURL(data.file[0] as File);
+    dispatch(newSubmit(data));
+    ++keyCounter;
+    reset();
+  };
+
   return (
     <>
       <div>
-        <form className={style.wrapper} onSubmit={handleSubmit(props.NewSubmit)}>
+        <form className={style.wrapper} onSubmit={handleSubmit(handler)}>
           <div className={style.name}>
             Name:
             <label>
@@ -147,7 +153,7 @@ const FormsTemplate = (props: IProps) => {
             </button>
           </div>
           <div style={{ height: 20 }}>
-            {errors?.name && (
+            {/* {errors?.name && (
               <p style={{ color: 'red' }}>
                 {errors?.name.message?.toString() || 'Fill in name field'}
               </p>
@@ -179,7 +185,7 @@ const FormsTemplate = (props: IProps) => {
             )}
             {errors?.birthDay?.type === 'validate' && (
               <p style={{ color: 'red' }}> You should be at least 14 years old </p>
-            )}
+            )} */}
           </div>
         </form>
       </div>

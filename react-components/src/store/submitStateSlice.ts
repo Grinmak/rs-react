@@ -11,7 +11,7 @@ const submitState = createSlice({
   initialState,
   reducers: {
     setIsSubmitted(state, action: PayloadAction<boolean>) {
-      state.isSubmitted = action.payload;
+      state.isSubmitted = true;
     },
   },
 });
