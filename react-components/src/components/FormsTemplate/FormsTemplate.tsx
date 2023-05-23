@@ -57,7 +57,8 @@ const FormsTemplate: React.FC = () => {
                   required: true,
                   minLength: { value: 2, message: 'Minimal lenght for name field is 2 symbols' },
                   pattern: { value: /[a-zA-Z]/, message: 'Use letters please' },
-                })}></input>
+                })}
+              ></input>
             </label>
           </div>
           <div className={style.date}>
@@ -69,7 +70,8 @@ const FormsTemplate: React.FC = () => {
                 {...register('birthDay', {
                   required: 'You missed your birthday',
                   validate: validateDate,
-                })}></input>
+                })}
+              ></input>
             </label>
           </div>
           <fieldset>
@@ -84,7 +86,8 @@ const FormsTemplate: React.FC = () => {
                     value: true,
                     message: 'Contact is required',
                   },
-                })}></input>
+                })}
+              ></input>
             </label>
             <label>
               e-mail
@@ -96,7 +99,8 @@ const FormsTemplate: React.FC = () => {
                     value: true,
                     message: 'Contact is required',
                   },
-                })}></input>
+                })}
+              ></input>
             </label>
           </fieldset>
           <fieldset>
@@ -110,7 +114,8 @@ const FormsTemplate: React.FC = () => {
                     value: true,
                     message: 'Gender is required',
                   },
-                })}></input>
+                })}
+              ></input>
               <label htmlFor="male">Male</label>
             </div>
             <input
@@ -121,7 +126,8 @@ const FormsTemplate: React.FC = () => {
                   value: true,
                   message: 'Gender is required',
                 },
-              })}></input>
+              })}
+            ></input>
             <label htmlFor="female">Female</label>
           </fieldset>
           <div>
@@ -130,7 +136,8 @@ const FormsTemplate: React.FC = () => {
               defaultValue=""
               {...register('language', {
                 required: 'You did`t select language',
-              })}>
+              })}
+            >
               {languageValues.map(({ id, value, title }) => (
                 <option key={id} value={value}>
                   {title}
@@ -145,7 +152,8 @@ const FormsTemplate: React.FC = () => {
               type="file"
               {...register('file', {
                 required: true,
-              })}></input>
+              })}
+            ></input>
           </label>
           <div className={style.button_wrapper}>
             <button className={style.submit_button} type="submit">
@@ -153,7 +161,7 @@ const FormsTemplate: React.FC = () => {
             </button>
           </div>
           <div style={{ height: 20 }}>
-            {/* {errors?.name && (
+            {errors?.name && (
               <p style={{ color: 'red' }}>
                 {errors?.name.message?.toString() || 'Fill in name field'}
               </p>
@@ -168,9 +176,9 @@ const FormsTemplate: React.FC = () => {
                 {errors?.language.message?.toString() || 'Select language'}
               </p>
             )}
-            {errors?.checkbox && (
+            {errors?.contact && (
               <p style={{ color: 'red' }}>
-                {errors?.checkbox && 'Choose sms or e-mail as contact option'}
+                {errors?.contact && 'Choose sms or e-mail as contact option'}
               </p>
             )}
             {errors?.gender && (
@@ -185,7 +193,7 @@ const FormsTemplate: React.FC = () => {
             )}
             {errors?.birthDay?.type === 'validate' && (
               <p style={{ color: 'red' }}> You should be at least 14 years old </p>
-            )} */}
+            )}
           </div>
         </form>
       </div>
