@@ -1,12 +1,13 @@
 import SearchBar from '../components/SearchBar';
 import { useEffect, useState } from 'react';
 import RickAndMortyCard from '../components/RickAndMortyCard';
+import { useAppSelector } from '../hooks';
 
 const HomePage = () => {
-  const [userSearchValue, setUserSearchValue] = useState('');
   const [dataFromApi, setDataFromApi] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const userSearchValue = useAppSelector((state) => state.searchValue.inputValue);
 
   useEffect(() => {
     //timeout  for cross-check
@@ -52,7 +53,7 @@ const HomePage = () => {
 
   return (
     <>
-      <SearchBar searchValue={setUserSearchValue} loadingMessage={setIsLoading} />
+      <SearchBar loadingMessage={setIsLoading} />
       {isLoading && (
         <div
           style={{

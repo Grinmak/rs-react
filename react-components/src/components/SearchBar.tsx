@@ -1,6 +1,8 @@
 import { Button, InputAdornment, styled, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
+import { useAppSelector, useAppDispatch } from '../hooks';
+import { addRequestValue } from '../store/searchSlice';
 
 const TextInput = styled(TextField)`
   display: flex;
@@ -8,26 +10,27 @@ const TextInput = styled(TextField)`
 `;
 
 type ISearchBar = {
-  searchValue: Dispatch<SetStateAction<string>>;
   loadingMessage: Dispatch<SetStateAction<boolean>>;
 };
 
 const SearchBar = (props: ISearchBar) => {
+  const searchValue = useAppSelector((state) => state.searchValue.inputValue);
+  const dispatch = useAppDispatch();
+
   const searchFieldRef = React.useRef<HTMLInputElement>(null);
-  React.useEffect(() => {
+
+  useEffect(() => {
     const searchDiv = searchFieldRef.current;
     if (searchDiv) {
-      searchDiv.value = localStorage.getItem('search') || '';
-      props.searchValue(searchDiv.value);
-      return () => {
-        localStorage.setItem('search', searchDiv.value);
-      };
+      searchDiv.value = searchValue || '';
+      dispatch(addRequestValue(searchDiv.value));
     }
   });
+
   const SubmitHandler = () => {
     props.loadingMessage(true);
     const searchDiv = searchFieldRef.current;
-    props.searchValue(searchDiv!.value);
+    dispatch(addRequestValue(searchDiv!.value));
   };
 
   return (
