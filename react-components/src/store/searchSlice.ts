@@ -13,6 +13,7 @@ const searchSlice = createSlice({
     addRequestValue: (state, action: PayloadAction<string>) => {
       state.inputValue = action.payload;
       console.log('state:', state.inputValue);
+      console.log('payload:', action.payload);
     },
   },
 });
